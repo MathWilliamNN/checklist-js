@@ -1,10 +1,17 @@
-import './App.css'
+import ChecklistBody from "./Components/ChecklistBody"
+import ChecklistInput from "./Components/ChecklistInput"
+import ShoppingList from "./Components/ShoppingList"
+
 
 function App() {
 
   return (
     <>
-      <h1> CheckList </h1>
+      <ChecklistBody>
+        <ChecklistInput />
+        <ShoppingList title = "Shopping List"/>
+        <ShoppingList title = "Purchased"/>
+      </ChecklistBody>
     </>
   )
 }
