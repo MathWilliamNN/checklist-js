@@ -1,5 +1,7 @@
+import { useContext, useState } from "react"
 import styled from "styled-components"
 import itemBag from "../../assets/bag.png"
+import { ItemsContext } from "../../Context"
 
 
 const StyledForm = styled.form`
@@ -8,12 +10,10 @@ const StyledForm = styled.form`
     align-items: center;
 
 `
-
 const StyledImg = styled.img`
     width: 160px;
     margin: 16px;
 `
-
 const StyledInput = styled.input`
     width: 220px;
     font-size: 16px;
@@ -22,7 +22,6 @@ const StyledInput = styled.input`
     padding: 8px;
     margin-bottom: 16px;
 `
-
 const StyledButton = styled.button`
     padding: 8px;
     width: 140px;
@@ -44,15 +43,32 @@ const StyledButton = styled.button`
 
 const ChecklistInput = () => {
 
+    const [newItemName, setNewItemName] = useState('');
+
+    const { setItems } = useContext(ItemsContext);
+
     const handleSubmit = (event) => {
+
         event.preventDefault();
-        console.log('Formulário enviado');
+
+        const newItem = {
+            nome: newItemName,
+            purchased: false
+        };
+
+        setItems((prevItems) => [...prevItems, newItem]);
+        console.log('Novo item adicionado:', newItem);
+
+        setNewItemName('');
     };
 
-    return(
+    return (
         <StyledForm onSubmit={handleSubmit}>
-            <StyledImg src = {itemBag}/>
-            <StyledInput placeholder="Type the item you want to add"/>
+            <StyledImg src={itemBag} />
+            <StyledInput
+                value={newItemName}
+                onChange={(e) => setNewItemName(e.target.value)}
+                placeholder="Type the item you want to add" />
             <StyledButton type="submit"> Add item</StyledButton>
         </StyledForm>
     )

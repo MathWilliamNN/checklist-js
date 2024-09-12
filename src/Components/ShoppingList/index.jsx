@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import Title from "../Title"
 import ShoppingItem from "../ShoppingItem"
+import { useContext } from "react"
+import { ItemsContext } from "../../Context"
 
 
 const StyledHr = styled.hr`
@@ -16,24 +18,39 @@ const StyledContainer = styled.div`
     margin: 8px;
 `
 
-const ShoppingList = ({ title}) => {
+const ShoppingList = () => {
 
-    const items = ["tomate", "miojo", "alho", 'cebola', 'macarrao'];
+    const { items } = useContext(ItemsContext);
 
     return (
+        <>
+            <StyledContainer>
+                <Title> Shopping List </Title>
+                <StyledHr />
+                {items.some(item => !item.purchased) ?
+                    items
+                        .filter(item => !item.purchased)
+                        .map((item, index) => (
+                            <ShoppingItem key={index} item={item} />
+                        ))
+                    :
+                    <h2> This list is still empty...</h2>}
+            </StyledContainer>
 
-        <StyledContainer>
-            <Title> {title} </Title>
-            <StyledHr />
-            {items ?
-                items.map((item, index) => <ShoppingItem key = {index} item={item} />)
-                :
-                <h2> This list is still empty...</h2>
-            }
-
-        </StyledContainer>
-
+            {items.some(item => item.purchased) ? (
+                <StyledContainer>
+                    <Title> Purchased </Title>
+                    <StyledHr />
+                    {items
+                        .filter(item => item.purchased)
+                        .map((item, index) => (
+                            <ShoppingItem key={index} item={item} />
+                        ))}
+                </StyledContainer>
+            ) : null}
+        </>
     )
+
 }
 
 export default ShoppingList

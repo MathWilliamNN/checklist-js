@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { ItemsContext } from "../../Context"
+import { useContext } from "react";
 
 
 const ItemContainer = styled.div`
@@ -24,15 +26,25 @@ const ButtonsContainer = styled.div`
     gap: 8px;
     color: var(--marine-blue);
 
+    & > * {
+        cursor: pointer;
+
+        &:hover {   
+            transform: scale(1.15);
+        }
+    }
 `
 const StyledItemName = styled.h2`
 
     font-size: 16px;
     font-weight: 500;
     padding-left: 4px;
+    text-decoration: ${props => props.purchased ? 'line-through' : 'none'};
 
     &::first-letter {
     text-transform: uppercase;
+
+    
 }
 `
 const Time = styled.h3`
@@ -66,20 +78,29 @@ const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `
 
 const ShoppingItem = ({ item }) => {
+
+
+    const { handleStatusChange, handleDelete } = useContext(ItemsContext);
+
+    const handleCheckboxChange = (event) => {
+        const isChecked = event.target.checked;
+        handleStatusChange(item, isChecked);
+    };
+
     return (
 
         <ItemContainer>
             <DataContainer>
                 <TextContainer>
-                    <StyledCheckbox />
-                    <StyledItemName>{item}</StyledItemName>
+                    <StyledCheckbox checked={item.purchased} onChange={handleCheckboxChange} />
+                    <StyledItemName purchased={item.purchased}>{item.nome}</StyledItemName>
                 </TextContainer>
                 <ButtonsContainer>
                     <MdEdit size={20} />
-                    <MdDelete size={20} />
+                    <MdDelete size={20} onClick={() => handleDelete(item)} />
                 </ButtonsContainer>
             </DataContainer>
-            <Time> Hora teste </Time>
+            <Time> Placeholder (hora da compra) </Time>
         </ItemContainer>
     )
 }
