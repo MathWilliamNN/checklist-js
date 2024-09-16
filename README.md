@@ -26,12 +26,12 @@ Este projeto é um **Aplicativo de Lista de Compras**, inspirado no design de um
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/shopping-list-app.git
+    git clone https://github.com/MathWilliamNN/shoppinglist-js.git
     ```
 
 2. Navegue até o diretório do projeto:
     ```bash
-    cd shopping-list-app
+    cd shoppinglist-js
     ```
 
 3. Instale as dependências:
@@ -52,9 +52,8 @@ Este projeto é um **Aplicativo de Lista de Compras**, inspirado no design de um
 4. **Verificar o status**: Se sua lista estiver vazia ou completa, o app irá notificá-lo com uma mensagem amigável.
 
 
-#EN-US
+# EN-US
 
-" 
 # 🛒 Shopping List App
 
 ## 📋 Description
@@ -81,12 +80,12 @@ This project is a **Shopping List Application**, inspired by Alura©, where user
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/shopping-list-app.git
+    git clone https://github.com/MathWilliamNN/shoppinglist-js.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd shopping-list-app
+    cd shoppinglist-js
     ```
 
 3. Install the dependencies:
@@ -105,5 +104,5 @@ This project is a **Shopping List Application**, inspired by Alura©, where user
 2. **Edit an item**: Click the edit button next to an item, update the name, and save the changes.
 3. **Mark as purchased**: Toggle the purchased status by clicking on the checkbox next to an item.
 4. **Check the status**: If your list is empty or complete, the app will notify you with a friendly message.
-"
+
 
