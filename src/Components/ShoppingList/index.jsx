@@ -34,7 +34,10 @@ const ShoppingList = () => {
                             <ShoppingItem key={index} item={item} />
                         ))
                     :
-                    <h2> This list is still empty...</h2>}
+                    items.length > 0 ?
+                    <h2>Great job! You've completed your shopping list!</h2>
+                    :
+                    <h2>Your shopping list is currently empty. Time to add some items!</h2>}
             </StyledContainer>
 
             {items.some(item => item.purchased) ? (

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import itemBag from "../../assets/bag.png"
 import { ItemsContext } from "../../Context"
@@ -43,21 +43,40 @@ const StyledButton = styled.button`
 
 const ChecklistInput = () => {
 
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const [newItemName, setNewItemName] = useState('');
+    const { setItems, setEditMode, editMode, editItem, items } = useContext(ItemsContext);
 
-    const { setItems } = useContext(ItemsContext);
+    useEffect(() => {
+        if (editMode && editItem) {
+            setNewItemName(editItem.name);
+        }
+    }, [editMode, editItem]);
 
     const handleSubmit = (event) => {
 
         event.preventDefault();
 
-        const newItem = {
-            nome: newItemName,
-            purchased: false
-        };
+        if (editMode) {
+            const updatedItems = items.map(item =>
+                item === editItem ? { ...item, name: newItemName } : item
+            );
+            setItems(updatedItems);
+            setEditMode(false);
+        } else {
 
-        setItems((prevItems) => [...prevItems, newItem]);
-        console.log('Novo item adicionado:', newItem);
+           const dateOfPurchase = new Date()
+
+            const newItem = {
+                name: newItemName,
+                purchased: false,
+                date:`${daysOfWeek[dateOfPurchase.getDay()]} (${dateOfPurchase.getDate()}/${dateOfPurchase.getMonth() + 1}/${dateOfPurchase.getFullYear()}) at ${dateOfPurchase.getHours()}:${dateOfPurchase.getMinutes()}` 
+            };
+
+
+            setItems((prevItems) => [...prevItems, newItem]);
+            console.log('Novo item adicionado:', newItem);
+        }
 
         setNewItemName('');
     };

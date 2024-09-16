@@ -9,7 +9,6 @@ const ItemContainer = styled.div`
     display:flex;
     flex-direction:column;
     justify-content: space-between;
-    gap: 8px;
     margin: 8px;
 `
 const DataContainer = styled.div`
@@ -37,7 +36,7 @@ const ButtonsContainer = styled.div`
 const StyledItemName = styled.h2`
 
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     padding-left: 4px;
     text-decoration: ${props => props.purchased ? 'line-through' : 'none'};
 
@@ -50,6 +49,7 @@ const StyledItemName = styled.h2`
 const Time = styled.h3`
     text-align:left;
     font-size: 12px;
+    font-weight: 700;
     margin: 0 0 0 8px ;
 `
 const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -80,7 +80,7 @@ const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
 const ShoppingItem = ({ item }) => {
 
 
-    const { handleStatusChange, handleDelete } = useContext(ItemsContext);
+    const { handleStatusChange, handleDelete, handleEdit } = useContext(ItemsContext);
 
     const handleCheckboxChange = (event) => {
         const isChecked = event.target.checked;
@@ -93,14 +93,14 @@ const ShoppingItem = ({ item }) => {
             <DataContainer>
                 <TextContainer>
                     <StyledCheckbox checked={item.purchased} onChange={handleCheckboxChange} />
-                    <StyledItemName purchased={item.purchased}>{item.nome}</StyledItemName>
+                    <StyledItemName purchased={item.purchased}>{item.name}</StyledItemName>
                 </TextContainer>
                 <ButtonsContainer>
-                    <MdEdit size={20} />
+                    <MdEdit size={20} onClick ={() => handleEdit(item)}/>
                     <MdDelete size={20} onClick={() => handleDelete(item)} />
                 </ButtonsContainer>
             </DataContainer>
-            <Time> Placeholder (hora da compra) </Time>
+            <Time> {item.date} </Time>
         </ItemContainer>
     )
 }

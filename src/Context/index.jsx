@@ -4,18 +4,12 @@ export const ItemsContext = createContext();
 
 export const ItemProvider = ({ children }) => {
   
-  const [items, setItems] = useState([
-    { nome: 'Apple', purchased: false },
-    { nome: 'Banana', purchased: true },
-    { nome: 'Orange', purchased: false },
-    { nome: 'Grapes', purchased: true },
-    { nome: 'Mango', purchased: false },
-  ]);
+  const [items, setItems] = useState([]);
 
   const handleStatusChange = (updatedItem, purchased) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.nome === updatedItem.nome
+        item.name === updatedItem.name
           ? { ...item, purchased }
           : item
       )
@@ -24,12 +18,21 @@ export const ItemProvider = ({ children }) => {
 
   const handleDelete = (itemToDelete) => {
     setItems((prevItems) =>
-        prevItems.filter(item => item.nome !== itemToDelete.nome)
+        prevItems.filter(item => item.name !== itemToDelete.name)
     );
 };
 
+const [editMode, setEditMode] = useState(false);
+const [editItem, setEditItem] = useState('');
+
+  const handleEdit = (itemToEdit) => {
+      setEditItem(itemToEdit);
+      setEditMode(true);
+    ;
+};
+
   return (
-    <ItemsContext.Provider value={{ items, setItems, handleStatusChange, handleDelete }}>
+    <ItemsContext.Provider value={{ items, setItems, handleStatusChange, handleDelete, handleEdit, editMode, setEditMode, editItem, setEditItem }}>
       {children}
     </ItemsContext.Provider>
   );
